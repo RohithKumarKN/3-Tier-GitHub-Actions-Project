@@ -24,25 +24,25 @@ jobs:
           cd client
           find . -name "*.js" -exec node --check {} +
 
-  #     - name: Backend Compilation (Syntax Check)
-  #       run: |
-  #         cd api
-  #         find . -name "*.js" -exec node --check {} +
+      - name: Backend Compilation (Syntax Check)
+        run: |
+          cd api
+          find . -name "*.js" -exec node --check {} +
 
-  # gitleaks-scan:
-  #   runs-on: Agent-1
-  #   needs: compile
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
+  gitleaks-scan:
+    runs-on: Agent-1
+    needs: compile
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-  #     - name: Gitleaks Setup
-  #       uses: gitleaks/gitleaks-action@v2
+      - name: Gitleaks Setup
+        uses: gitleaks/gitleaks-action@v2
 
-  #     - name: Gitleaks Scan
-  #       run: |
-  #         gitleaks detect --source ./client --exit-code 1
-  #         gitleaks detect --source ./api --exit-code 1
+      - name: Gitleaks Scan
+        run: |
+          gitleaks detect --source ./client --exit-code 1
+          gitleaks detect --source ./api --exit-code 1
 
   # trivy_fs_scan:
   #   runs-on: Agent-1
